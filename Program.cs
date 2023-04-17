@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +9,14 @@ var app = builder.Build();
 
 
 
+//1 part
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
+{
+    option.LoginPath = "/Home/Login";
+    option.ExpireTimeSpan = TimeSpan.FromMinutes(15);
+    option.Cookie.Name = ".HotelATR.Cookies";
+    option.SlidingExpiration = true;
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -21,6 +31,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//2 part
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -18,6 +18,16 @@
                             <li><a href="event.html">EVENT</a></li>
                             <li><a href="team.html">TEAM</a></li>
                             <li><a href="contact.html">CONTACT</a></li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li><a asp-action="Logout" asp-controller="Home">LOGOUT</a></li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a asp-action="Login" asp-controller="Home">LOGIN</a>
+                                </li>
+                            }
                         </ul>
                     </nav>
                 </div>
